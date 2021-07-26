@@ -7,7 +7,7 @@ require('spec_helper')
 describe '#Song' do
 
   before(:each) do
-    @album = Album.new({:name => "Giant Steps", :id => nil})
+    @album = Album.new({:name => "Giant Steps", :id => nil, :release_year => 2003})
     @album.save()
   end
 
@@ -80,7 +80,7 @@ describe '#Song' do
 
   describe('.find_by_album') do
     it("finds songs for an album") do
-      album2 = Album.new({:name => "Blue", :id => nil})
+      album2 = Album.new({:name => "Blue", :id => nil, :release_year => 2003})
       album2.save
       song = Song.new({:name => "Naima", :album_id => @album.id, :id => nil})
       song.save()
