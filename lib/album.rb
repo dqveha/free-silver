@@ -1,11 +1,12 @@
 class Album
-  attr_accessor :name, :release_year
+  attr_accessor :name, :release_year, :cost
   attr_reader :id
 
   def initialize(attributes)
     @name = attributes.fetch(:name)
     @id = attributes.fetch(:id)
     @release_year = attributes.fetch(:release_year)
+    @cost = attributes.fetch(:cost)
   end
 
   def self.all
@@ -15,13 +16,14 @@ class Album
       name = album.fetch("name")
       id = album.fetch("id").to_i
       release_year = album.fetch("release_year").to_i
-      albums.push(Album.new({:name => name, :id => id, :release_year => release_year}))
+      cost = album.fetch("cost").to_f
+      albums.push(Album.new({:name => name, :id => id, :release_year => release_year, :cost => cost}))
       end
     albums
   end
 
   def save
-    result = DB.exec("INSERT INTO albums (name, release_year) VALUES ('#{@name}', '#{@release_year}') RETURNING id;")
+    result = DB.exec("INSERT INTO albums (name, release_year, cost) VALUES ('#{@name}', '#{@release_year}', '#{@cost}') RETURNING id;")
     @id = result.first().fetch("id").to_i
   end
 
@@ -38,7 +40,8 @@ class Album
     name = album.fetch("name")
     id = album.fetch("id").to_i
     release_year = album.fetch("release_year").to_i
-    Album.new({:name => name, :id => id, :release_year => release_year})
+    cost = album.fetch("cost").to_f
+    Album.new({:name => name, :id => id, :release_year => release_year, :cost => cost})
   end
 
   def update(name)
@@ -62,5 +65,11 @@ class Album
   def self.chrono
     self.all.sort_by {|album| album.release_year}
   end
+
+  def self.cost
+    new_array = []
+    album = self.all.sort_by {|album| album.cost}
+    new_array.push(album[0],album[-1])
+  end  
 
 end
