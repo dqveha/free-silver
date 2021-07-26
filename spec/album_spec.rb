@@ -104,6 +104,7 @@ describe '#Album' do
       expect(Album.chrono).to(eq([album2, album]))
     end
   end
+
   describe('.cost') do
     it('returns cheap/expensive albums ') do
       album = Album.new({:name => "Rawr", :id => nil, :release_year => 2003, :cost =>5.0})
@@ -115,5 +116,16 @@ describe '#Album' do
       expect(Album.cost).to(eq([album2, album]))
     end
   end
- 
+
+  describe('.random') do
+    it('returns something random.. hopefully.. ') do
+      album = Album.new({:name => "Rawr", :id => nil, :release_year => 2003, :cost =>5.0})
+      album.save()
+      album2 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 2.0})
+      album2.save()
+      album3 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 3.0})
+      album3.save()
+      expect(Album.find(Album.random())).to(eq([]))
+    end
+  end
 end

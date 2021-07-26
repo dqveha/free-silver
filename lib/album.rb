@@ -1,3 +1,4 @@
+require `pry`
 class Album
   attr_accessor :name, :release_year, :cost
   attr_reader :id
@@ -72,4 +73,13 @@ class Album
     new_array.push(album[0],album[-1])
   end  
 
+  def self.random
+    random_id = rand(1..3)
+    album = DB.exec("SELECT * FROM albums WHERE id = #{random_id};").first
+    name = album.fetch("name")
+    id = album.fetch("id").to_i
+    release_year = album.fetch("release_year").to_i
+    cost = album.fetch("cost").to_f
+    Album.new({:name => name, :id => id, :release_year => release_year, :cost => cost})
+  end
 end
