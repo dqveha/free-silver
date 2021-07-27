@@ -75,3 +75,23 @@ delete ('/albums/:id/songs/:song_id') do
   @album = Album.find(params[:id].to_i())
   erb(:album)
 end
+
+get ('/artists') do
+# gets list of all artists
+end
+
+get ('/artists/:id') do
+# look at the detail page for single album
+end
+
+post ('/artists') do
+# add a new album to the list of artists
+end
+
+patch ('/artists/:id') do
+# update a single album
+end
+
+delete ('/artists/:id') do
+# delete an album from the list
+end

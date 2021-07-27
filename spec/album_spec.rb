@@ -1,6 +1,7 @@
 require 'rspec'
 require 'album'
 require 'song'
+require 'artist'
 require 'pry'
 require('spec_helper')
 
@@ -55,8 +56,8 @@ describe '#Album' do
     it("updates an album by id") do
       album = Album.new({:name => "A Love Supreme", :id => nil, :release_year => 2003, :cost => 1.0})
       album.save()
-      album.update("A Love Supreme")
-      expect(album.name).to(eq("A Love Supreme"))
+      album.update({:name => "Woah dude"})
+      expect(album.name).to(eq("Woah dude"))
     end
   end
 
@@ -117,15 +118,32 @@ describe '#Album' do
     end
   end
 
-  describe('.random') do
-    it('returns something random.. hopefully.. ') do
+  # describe('.random') do
+  #   it('returns something random.. hopefully.. ') do
+  #     album = Album.new({:name => "Rawr", :id => nil, :release_year => 2003, :cost =>5.0})
+  #     album.save()
+  #     album2 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 2.0})
+  #     album2.save()
+  #     album3 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 3.0})
+  #     album3.save()
+  #     expect(Album.find(Album.random()).to(eq([])))
+  #   end
+  # end
+
+  describe('#artists') do
+    it('returns artists from album') do
       album = Album.new({:name => "Rawr", :id => nil, :release_year => 2003, :cost =>5.0})
       album.save()
-      album2 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 2.0})
-      album2.save()
-      album3 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 3.0})
-      album3.save()
-      expect(Album.find(Album.random())).to(eq([]))
+      artist = Artist.new({:name => "John Coltrane", :id => nil, :album_id => nil})
+      artist.save()
+      album.update({:artist_name => "John Coltrane"})
+      artist2 = Artist.new({:name => "Black Betty", :id => nil, :album_id => nil})
+      artist2.save()
+      album.update({:artist_name => "Black Betty"})
+      artist3 = Artist.new({:name => "Dude, wheres my dog", :id => nil, :album_id => nil})
+      artist3.save()
+      album.update({:artist_name => "Dude, wheres my dog"})
+      expect(album.artists()).to(eq([artist, artist2, artist3]))
     end
   end
 end
