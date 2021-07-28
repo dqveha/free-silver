@@ -5,7 +5,6 @@ class Artist
   def initialize(attributes)
     @name = attributes.fetch(:name)
     @id = attributes.fetch(:id)
-    @album_id = attributes.fetch(:album_id)
   end
 
   def self.all
@@ -34,11 +33,15 @@ class Artist
 
   def self.find(id)
     artist = DB.exec("SELECT * FROM artists WHERE id = #{id};").first
-    name = artist.fetch("name")
-    id = artist.fetch("id").to_i
-    release_year = artist.fetch("release_year").to_i
-    cost = artist.fetch("cost").to_f
-    Artist.new({:name => name, :id => id})
+    if artist
+      name = artist.fetch("name")
+      id = artist.fetch("id").to_i
+    # release_year = artist.fetch("release_year").to_i
+    # cost = artist.fetch("cost").to_f
+      Artist.new({:name => name, :id => id})
+    else
+      nil
+    end
   end
 
 

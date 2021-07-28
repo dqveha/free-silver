@@ -56,7 +56,7 @@ describe '#Album' do
     it("updates an album by id") do
       album = Album.new({:name => "A Love Supreme", :id => nil, :release_year => 2003, :cost => 1.0})
       album.save()
-      album.update({:name => "Woah dude"})
+      album.update("Woah dude")
       expect(album.name).to(eq("Woah dude"))
     end
   end
@@ -96,27 +96,27 @@ describe '#Album' do
     end
   end
 
-  describe('.chrono') do
-    it('returns albums in chronological order') do
-      album = Album.new({:name => "Rawr", :id => nil, :release_year => 2003, :cost => 1.0})
-      album.save()
-      album2 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 1.0})
-      album2.save()
-      expect(Album.chrono).to(eq([album2, album]))
-    end
-  end
+  # describe('.chrono') do
+  #   it('returns albums in chronological order') do
+  #     album = Album.new({:name => "Rawr", :id => nil, :release_year => 2003, :cost => 1.0})
+  #     album.save()
+  #     album2 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 1.0})
+  #     album2.save()
+  #     expect(Album.chrono).to(eq([album2, album]))
+  #   end
+  # end
 
-  describe('.cost') do
-    it('returns cheap/expensive albums ') do
-      album = Album.new({:name => "Rawr", :id => nil, :release_year => 2003, :cost =>5.0})
-      album.save()
-      album2 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 2.0})
-      album2.save()
-      album3 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 3.0})
-      album3.save()
-      expect(Album.cost).to(eq([album2, album]))
-    end
-  end
+  # describe('.cost') do
+  #   it('returns cheap/expensive albums ') do
+  #     album = Album.new({:name => "Rawr", :id => nil, :release_year => 2003, :cost =>5.0})
+  #     album.save()
+  #     album2 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 2.0})
+  #     album2.save()
+  #     album3 = Album.new({:name => "Awooooo", :id => nil, :release_year => 1974, :cost => 3.0})
+  #     album3.save()
+  #     expect(Album.cost).to(eq([album2, album]))
+  #   end
+  # end
 
   # describe('.random') do
   #   it('returns something random.. hopefully.. ') do
@@ -130,20 +130,20 @@ describe '#Album' do
   #   end
   # end
 
-  describe('#artists') do
-    it('returns artists from album') do
-      album = Album.new({:name => "Rawr", :id => nil, :release_year => 2003, :cost =>5.0})
-      album.save()
-      artist = Artist.new({:name => "John Coltrane", :id => nil, :album_id => nil})
-      artist.save()
-      album.update({:artist_name => "John Coltrane"})
-      artist2 = Artist.new({:name => "Black Betty", :id => nil, :album_id => nil})
-      artist2.save()
-      album.update({:artist_name => "Black Betty"})
-      artist3 = Artist.new({:name => "Dude, wheres my dog", :id => nil, :album_id => nil})
-      artist3.save()
-      album.update({:artist_name => "Dude, wheres my dog"})
-      expect(album.artists()).to(eq([artist, artist2, artist3]))
-    end
-  end
+  # describe('#artists') do
+  #   it('returns artists from album') do
+  #     album = Album.new({:name => "Rawr", :id => nil, :release_year => 2003, :cost =>5.0})
+  #     album.save()
+  #     artist = Artist.new({:name => "John Coltrane", :id => nil, :album_id => 1})
+  #     artist.save()
+  #     album.update({:name => "John Coltrane"})
+  #     artist2 = Artist.new({:name => "Black Betty", :id => nil, :album_id => 1})
+  #     artist2.save()
+  #     album.update({:name => "Black Betty"})
+  #     artist3 = Artist.new({:name => "Dude, wheres my dog", :id => nil, :album_id => 1})
+  #     artist3.save()
+  #     album.update({:name => "Dude, wheres my dog"})
+  #     expect(album.artists()).to(eq([artist, artist2, artist3]))
+  #   end
+  # end
 end
